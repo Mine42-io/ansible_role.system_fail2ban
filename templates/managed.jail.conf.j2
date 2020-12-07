@@ -1,0 +1,13 @@
+[sshd]
+enabled = true
+bantime = 86400
+findtime = 600
+maxretry = 5
+
+[proxmox]
+enabled = true
+port = https,http,8006
+logpath = /var/log/daemon.log
+filter = proxmox
+maxretry = 5
+bantime = 86400

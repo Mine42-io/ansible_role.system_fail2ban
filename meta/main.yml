@@ -1,0 +1,4 @@
+galaxy_info:
+  role_name: system_fail2ban
+  author: jpclipffel
+  description: Install and configure Fail2Ban

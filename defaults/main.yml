@@ -1,0 +1,7 @@
+# List of jails to install
+system_fail2ban_jails:
+  - managed
+
+# List of filters to install
+system_fail2ban_filters:
+  - proxmox

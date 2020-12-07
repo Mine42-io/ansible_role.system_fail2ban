@@ -1,0 +1,61 @@
+- name: Install fail2ban
+  package:
+    name: fail2ban
+    state: present
+  tags: [never, setup]
+
+
+- name: Install jails
+  template:
+    src: "{{ item }}.jail.conf.j2"
+    dest: /etc/fail2ban/jail.d/{{ item }}.conf
+  with_items: "{{ system_fail2ban_jails }}"
+  tags: [never, setup]
+
+
+- name: Install filters
+  template:
+    src: "{{ item }}.filter.conf.j2"
+    dest: "/etc/fail2ban/filter.d/{{ item }}.conf"
+  with_items: "{{ system_fail2ban_filters }}"
+  tags: [never, setup]
+
+
+- name: Activate fail2ban
+  systemd:
+    name: fail2ban
+    state: restarted
+    enabled: yes
+  tags: [never, setup]
+
+# ---
+
+- name: Deactivate fail2ban
+  service:
+    name: fail2ban
+    sate: stopped
+    enabled: no
+  tags: [never, teardown, remove]
+
+
+- name: Install jails
+  template:
+    path: /etc/fail2ban/jail.d/{{ item }}.conf
+    state: absent
+  with_items: "{{ system_fail2ban_jails }}"
+  tags: [never, teardown, remove]
+
+
+- name: Install filters
+  template:
+    path: "/etc/fail2ban/filter.d/{{ item }}.conf"
+    state: absent
+  with_items: "{{ system_fail2ban_filters }}"
+  tags: [never, teardown, remove]
+
+
+- name: Uninstall fail2ban
+  package:
+    name: fail2ban
+    state: absent
+  tags: [never, remove]

@@ -1,7 +1,9 @@
+# code: language=Ansible insertSpaces=true tabSize=2
+
+
 # List of jails to install
 system_fail2ban_jails:
-  - managed
+  - ssh
 
 # List of filters to install
-system_fail2ban_filters:
-  - proxmox
+system_fail2ban_filters: []

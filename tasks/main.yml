@@ -1,3 +1,6 @@
+# code: language=Ansible insertSpaces=true tabSize=2
+
+
 - name: Install fail2ban
   package:
     name: fail2ban
@@ -7,7 +10,7 @@
 
 - name: Install jails
   template:
-    src: "{{ item }}.jail.conf.j2"
+    src: "jails/{{ item }}.conf.j2"
     dest: /etc/fail2ban/jail.d/{{ item }}.conf
   with_items: "{{ system_fail2ban_jails }}"
   tags: [never, setup]
@@ -15,7 +18,7 @@
 
 - name: Install filters
   template:
-    src: "{{ item }}.filter.conf.j2"
+    src: "filters/{{ item }}.conf.j2"
     dest: "/etc/fail2ban/filter.d/{{ item }}.conf"
   with_items: "{{ system_fail2ban_filters }}"
   tags: [never, setup]
